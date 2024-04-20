@@ -1,13 +1,6 @@
-import {
-  Controller,
-  Get,
-  Patch,
-  Post,
-  Put,
-  Delete,
-  HttpException,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CatsService } from './cats.service';
+import { CatRequestDto } from './dto/cats.request.dto';
 
 @Controller('cats')
 export class CatsController {
@@ -15,32 +8,11 @@ export class CatsController {
 
   @Get()
   getAllCat() {
-    throw new HttpException('api not', 401);
-    return 'all cat';
-  }
-
-  @Get(':id')
-  getOneCat() {
     return 'all cat';
   }
 
   @Post()
-  updateCat() {
-    return 'create cat';
-  }
-
-  @Put(':id')
-  updatePartialCat() {
-    return 'create cat';
-  }
-
-  @Patch(':id')
-  createCat() {
-    return 'create cat';
-  }
-
-  @Delete(':id')
-  deleteCat() {
-    return 'create cat';
+  async signup(@Body() body: CatRequestDto) {
+    return await this.catsService.signup(body);
   }
 }
