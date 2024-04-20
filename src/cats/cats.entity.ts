@@ -1,4 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { Exclude } from 'class-transformer';
+
 import {
   Entity,
   Column,
@@ -6,23 +8,39 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Cat {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @ApiProperty({
+    type: String,
+    description: 'email',
+    required: true,
+  })
   @IsEmail()
   @IsNotEmpty()
-  @IsString()
   @Column()
   email: string;
 
+  @ApiProperty({
+    type: String,
+    description: 'password',
+    required: true,
+  })
   @IsNotEmpty()
   @IsString()
   @Column()
+  @Exclude()
   password: string;
 
+  @ApiProperty({
+    type: String,
+    description: 'name',
+    required: true,
+  })
   @IsNotEmpty()
   @IsString()
   @Column()
@@ -33,8 +51,10 @@ export class Cat {
   imgUrl?: string;
 
   @CreateDateColumn({ name: 'created_at' })
+  @Exclude()
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
+  @Exclude()
   updatedAt: Date;
 }
