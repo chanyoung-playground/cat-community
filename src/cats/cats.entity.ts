@@ -30,8 +30,6 @@ export class Cat {
     description: 'password',
     required: true,
   })
-  @IsNotEmpty()
-  @IsString()
   @Column()
   @Exclude()
   password: string;
